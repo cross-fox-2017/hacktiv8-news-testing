@@ -8,7 +8,10 @@ import { DataSearch } from '../src/routes/Home/DataSearch.jsx'
 const homeWrapper = mount(<Home />)
 
 describe('<Home />', () => {
-  it('should have div with length of 1', () => {
+  it('should return something', () => {
+    expect(new Home()).toBeDefined()
+  })
+  it('should have 1 div', () => {
     expect(homeWrapper.find('div')).toHaveLength(1)
   })
   it('should have state news of length 0', () => {
@@ -17,7 +20,7 @@ describe('<Home />', () => {
   it('should have state searchKey that equal to empty string', () => {
     expect(homeWrapper.state('searchKey')).toEqual('')
   })
-  it('should render DataList and DataSearch', () => {
+  it('should have element DataList and DataSearch', () => {
     expect(homeWrapper.containsAllMatchingElements([
       <DataSearch />,
       <DataList />
@@ -33,8 +36,13 @@ describe('<Home />', () => {
     expect(homeWrapper.state('searchKey')).toEqual('React')
   })
 
-  it('should have state news of length 20', (done) => {
-    fetch(`https://hn.algolia.com/api/v1/search?query=${encodeURI('redux')}`)
+  it('should have state news with length 20 after fetch', (done) => {
+    const event = {
+      target: {
+        value: 'Redux'
+      }
+    }
+    fetch(`https://hn.algolia.com/api/v1/search?query=${encodeURI(event.target.value)}`)
       .then((response) => {
         return response.json()
       })
@@ -42,12 +50,20 @@ describe('<Home />', () => {
         homeWrapper.setState({
           news: resp.hits
         })
-        expect(homeWrapper.state('news')).toHaveLength(20)
+        setTimeout(function () {
+          expect(homeWrapper.state('news')).toHaveLength(20)
+        }, 2000)
         done()
       })
       .catch((error) => {
         console.log(error);
-        done(error)
+        // done(error)
       })
     })
+
+  it('should have state searchKey that equal to empty string after click event', () => {
+    homeWrapper.instance().handleClick()
+    expect(homeWrapper.state('searchKey')).toEqual('')
+  })
+
 })

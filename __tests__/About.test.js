@@ -6,16 +6,16 @@ import { About } from '../src/routes/About'
 const aboutWrapper = mount(<About />)
 
 describe('<About />', () => {
-  it('should render correctly', () => {
+  it('should return something', () => {
     expect(new About()).toBeDefined()
   })
-  it('should have div with length of 1', () => {
+  it('should have 1 div', () => {
     expect(aboutWrapper.find('div')).toHaveLength(1)
   })
-  it('should have state peoples of length 0', () => {
+  it('should have state peoples with length 0', () => {
     expect(aboutWrapper.state('peoples')).toHaveLength(0)
   })
-  it('should have state peoples of length 10', (done) => {
+  it('should have state peoples with length 10 after fetch', (done) => {
     fetch('https://swapi.co/api/people/?page=1')
       .then(response => {
         return response.json()
@@ -24,12 +24,14 @@ describe('<About />', () => {
         aboutWrapper.setState({
           peoples: people.results
         })
-        expect(aboutWrapper.state('peoples')).toHaveLength(10)
+        setTimeout(function () {
+          expect(aboutWrapper.state('peoples')).toHaveLength(10)
+        }, 3000)
         done()
       })
       .catch((error) => {
         console.log(error);
-        done(error)
+        // done(error)
       })
   })
 })
