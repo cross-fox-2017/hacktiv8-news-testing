@@ -23,8 +23,8 @@ export class About extends Component {
         })
       })
       .catch((error) => {
-        console.log('People fetch error message: ', error.message);
-        throw error
+        // console.log('People fetch error message: ', error.message);
+        // throw error
       })
   }
 

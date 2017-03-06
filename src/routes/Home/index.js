@@ -23,10 +23,11 @@ export class Home extends Component {
     this.fetchNews(event.target.value)
   }
 
-  handleClick (event) {
+  handleClick () {
     this.setState({
       searchKey: ''
     })
+    this.fetchNews('')
   }
 
   componentDidMount () {
@@ -44,7 +45,7 @@ export class Home extends Component {
         })
       })
       .catch((error) => {
-        console.log('News fetch error message: ', error.message);
+        // console.log('News fetch error message: ', error.message);
         // throw error
       })
   }
