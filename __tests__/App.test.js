@@ -7,21 +7,21 @@ import logo from '../src/logo.svg'
 import { Menu } from '../src/components'
 import { Routes } from '../src/routes'
 
-const appWrapper = mount(<App />)
+const appWrapper = shallow(<App />)
 
 describe('<App />', () => {
-  it('should be defined', () => {
+  it('should return something', () => {
     expect(App()).toBeDefined()
   })
-  it('should have div with length of 4', () => {
-    expect(appWrapper.find('div')).toHaveLength(4)
+  it('should have 2 div', () => {
+    expect(appWrapper.find('div')).toHaveLength(2)
   })
-  it('should render Routes', () => {
+  it('should have element Routes', () => {
     expect(appWrapper.containsAllMatchingElements([
       <Routes />
     ])).toBe(true)
   })
-  it('should contains <App />', () => {
+  it('should contains exactly like the following', () => {
     expect(appWrapper.contains(
       <div className='App'>
         <div className='App-header'>
