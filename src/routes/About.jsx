@@ -22,6 +22,10 @@ export class About extends Component {
           peoples: resp.results
         })
       })
+      .catch((error) => {
+        console.log('People fetch error message: ', error.message);
+        throw error
+      })
   }
 
   render () {

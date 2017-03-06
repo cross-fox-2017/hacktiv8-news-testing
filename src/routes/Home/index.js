@@ -43,6 +43,10 @@ export class Home extends Component {
           news: resp.hits
         })
       })
+      .catch((error) => {
+        console.log('News fetch error message: ', error.message);
+        // throw error
+      })
   }
 
   render () {

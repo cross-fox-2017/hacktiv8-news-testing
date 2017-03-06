@@ -4,7 +4,7 @@ import './App.css'
 
 import { BrowserRouter as Router } from 'react-router-dom'
 import { Menu } from './components'
-import { Routes } from './Routes'
+import { Routes } from './routes'
 
 const App = () => (
   <div className='App'>
